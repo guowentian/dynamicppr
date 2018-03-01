@@ -1,4 +1,4 @@
 *.o
 pagerank
-encoder
-workload
+encoder/encoder
+workload/workload
