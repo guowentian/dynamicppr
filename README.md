@@ -77,7 +77,7 @@ The gpu and cpu implmentation has similar arguments, which we would explain as f
 
 * -d: gDataFileName (the input graph file encoded as our binary form)
 * -a: gAppType
-* 0:rev push, 1:monte carlo
+* 0:rev push, 1:monte carlo(deprecated)
 * -i: gIsDirected (1 for directed graph, 0 otherwise)
 * -y: gIsDynamic (1 for execution on streaming graph, 0 is deprecated)
 * -w: gWindowRatio (#edges in the sliding window, by default 0.1 of the all edges)
@@ -96,9 +96,12 @@ EXAMPLE: ./pagerank -d ../data/com-dblp.ungraph.bin -a 0 -i 0 -y 1 -n 0 -r 0.01 
 ```
 EXAMPLE: ./pagerank -d ../data/com-dblp.ungraph.bin -a 0 -i 0 -y 1 -n 1 -c 100 -l 10000 -s 1
 ```
-Normally, we use mode 0 with '-r 0.01 -b 100' and change different source vertices. 
+Users may be interested in the following three categories of arguments when they run the program:
+* data file relted arguments (-d, -i)
+* execution related arguments: specify '-a' as 0 to enable reverse push; specify '-y' as 1 to execute on dynamic graphs; control thread numbers with '-t' if running multi-threaded mode; choose the source vertex with '-s'
+* graph stream related arguments (-n, -r, -b, -c, -l): there are two modes for how graph streams arrive. The first is that in each batch a specific number of new edges arrive (the number is a ratio '-r' of the window size) and there are '-b' such batches. The second mode is that in each batch '-c' new edges arrive and there are '-l' edges in total. In the experiment, most of the time we use mode 0 with '-r 0.01 -b 100' and change different source vertices. 
 
-For your convenience, we provide useful scripts in 'cpu' and 'gpu' folder. 
+For your reference, we provide useful scripts in 'cpu' and 'gpu' folder as a hint for how to run the program. 
 
 # reference #
 [1. Parallel Personalized PageRank on Dynamic Graphs. Wentian Guo, Yuchen Li, Mo Sha, Kian-Lee Tan. VLDB 2017](http://www.vldb.org/pvldb/vol11/p93-guo.pdf) .
